@@ -1,0 +1,7 @@
+body{
+    background: rgb(7,1,117);
+    background: radial-gradient(circle, rgb(5, 0, 87) 17%, rgba(1,13,60,1) 52%, rgba(0,0,0,1) 100%);
+}
+.contenedor{
+    margin-top: 10%;
+}

@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 use App\Welcome;
 use Illuminate\Http\Request;
 use App\Model\System;
-use App\Model\Employee;
-use App\Model\Person;
-use App\Model\Designation;
-use App\User;
 class WelcomeController extends Controller
 {
     /**

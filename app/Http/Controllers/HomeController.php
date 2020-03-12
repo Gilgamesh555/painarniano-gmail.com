@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $system = System::select('systems.name')
+        $system = System::select('systems.id','systems.name','systems.description', 'systems.slug', 'roles.name as roleName')
                   ->join('modules','systems.id','=','modules.system_id')
                   ->join('permissions','modules.id','=','permissions.module_id')
                   ->join('permission_role as per1','permissions.id','=','per1.permission_id')
@@ -37,11 +37,6 @@ class HomeController extends Controller
                   ->where('users.id','=',Auth::user()->id)
                   ->distinct('systems.name')
                   ->get();
-        $algo = '';
-        foreach($system as $ot){
-            $algo = $algo.' - '.$ot->name;
-        }
-        dd($algo);
-        return view('home');
+        return view('home', compact('system'));
     }   
 }

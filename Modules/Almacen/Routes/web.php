@@ -13,5 +13,6 @@
 
 Route::group(['prefix' => 'almacen','middleware' => ['auth']],function() {
     Route::get('/', 'AlmacenController@index');
+    // Route::get('/', 'AlmacenController@index')->middleware(['role:secretaria']);
     Route::resource('form','FormController');
 });

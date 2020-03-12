@@ -8,10 +8,13 @@ use Illuminate\Notifications\Notifiable;
 use App\Model\Designation;
 use App\Model\Role;
 use App\Model\Permission;
+
+use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 class User extends Authenticatable
 {
     use Notifiable;
 
+    use HasRoleAndPermission;
     /**
      * The attributes that are mass assignable.
      *

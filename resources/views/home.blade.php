@@ -21,23 +21,26 @@
                         <div class="row">
 
                             <div class="col-md-12">
-                                <a href="{{ url('almacen') }}">
+                                @foreach ($system as $sys)
+                                    
+                                <a href="{{ url($sys->slug) }}">
                                     <div class="col-md-3 col-sm-6  ">
                                         <div class="pricing">
                                             <div class="title">
-                                                <h2></h2>
-                                                <h1>SOLICITUD DE PEDIDOS</h1>
+                                                <h2>{{ $sys->roleName }}</h2>
+                                                <h1>{{ $sys->name }}</h1>
                                             </div>
                                             <div class="x_content">
                                                 <div class="">
                                                     <div class="pricing_features" style="text-align: justify">
-                                                        <P>Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual</P>
+                                                            <P>{{ $sys->description }}</P>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
+                                @endforeach
                             </div>
                         </div>
                     </div>

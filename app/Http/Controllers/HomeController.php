@@ -37,7 +37,7 @@ class HomeController extends Controller
                   ->where('users.id','=',Auth::user()->id)
                   ->distinct('systems.name')
                   ->get();
-        session(['systems' => $system ]);
+                  session(['systems' => $system ]);
         return view('home');
     }   
 }

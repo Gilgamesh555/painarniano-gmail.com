@@ -21,7 +21,7 @@
                         <div class="row">
 
                             <div class="col-md-12">
-                                @foreach ($system as $sys)
+                                @foreach (session('systems') as $sys)
                                     
                                 <a href="{{ url($sys->slug) }}">
                                     <div class="col-md-3 col-sm-6  ">

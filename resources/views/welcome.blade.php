@@ -125,9 +125,15 @@
   <div class="menu_section">
     <h3>SISTEMAS DISPONIBLES</h3>
     <ul class="nav side-menu">
-      @foreach ($systems as $system)
+      @if (session('systems'))
+        @foreach (session('systems') as $system)
+          <li><a href="{{ url($system->slug) }}">{{ $system->name }} <span class="fa fa-chevron-right"></span></a></li>
+        @endforeach  
+      @else
+        @foreach ($systems as $system)
         <li><a href="{{ url($system->slug) }}">{{ $system->name }} <span class="fa fa-chevron-right"></span></a></li>
-      @endforeach
+        @endforeach
+      @endif
     </ul>
   </div>
 </div>  

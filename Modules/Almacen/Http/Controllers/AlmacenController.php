@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Model\System;
+use App\Model\Module;
 class AlmacenController extends Controller
 {
     /**
@@ -15,7 +16,7 @@ class AlmacenController extends Controller
      */
     public function index()
     {
-        $sys = System::select('roles.name')
+        $sys = System::select('roles.name','systems.id')
             ->join('modules','systems.id','=','modules.system_id')
             ->join('permissions','modules.id','=','permissions.module_id')
             ->join('permission_role as per1','permissions.id','=','per1.permission_id')
@@ -25,10 +26,14 @@ class AlmacenController extends Controller
             ->get();
         foreach( $sys as $s){
             if(Auth::user()->hasRole($s->name)){
+                $module = Module::where('system_id',$s->id);
+                if(!session()->has('modules')){
+
+                }
                 return view('almacen::index');
             }
         }
-        return redirect()->route('almacen');
+        return redirect()->route('/');
     }
 
     /**

@@ -16,20 +16,26 @@ class AlmacenController extends Controller
      */
     public function index()
     {
-        $sys = System::select('roles.name','systems.id')
-            ->join('modules','systems.id','=','modules.system_id')
-            ->join('permissions','modules.id','=','permissions.module_id')
-            ->join('permission_role as per1','permissions.id','=','per1.permission_id')
-            ->join('roles','per1.role_id','=','roles.id')
-            ->where('systems.id',3)
-            ->distinct('roles.name')
-            ->get();
-        foreach( $sys as $s){
-            if(Auth::user()->hasRole($s->name)){
-                $module = Module::where('system_id',$s->id);
-                if(!session()->has('modules')){
-
-                }
+        //dd($sys);
+        $systems = session('systems');
+        //dd($modules);
+        foreach($systems as $s){
+            //dd($s);
+            if(Auth::user()->hasRole($s->roleName)){
+                $modules = System::select('modules.id','modules.name','systems.id')
+                  ->join('modules','systems.id','=','modules.system_id')         
+                  ->join('permissions','modules.id','=','permissions.module_id')
+                  ->join('permission_role as per1','permissions.id','=','per1.permission_id')
+                  ->join('roles','per1.role_id','=','roles.id')
+                  ->join('role_user as rol1','roles.id','=','rol1.role_id')
+                  ->join('users','users.id','=','rol1.user_id')
+                  ->where([
+                      ['users.id','=',Auth::user()->id],
+                      ['systems.id', '=', $s->id],
+                      ])
+                  ->distinct('modules.name')
+                  ->get();
+                session(['modules' => $modules ]);
                 return view('almacen::index');
             }
         }

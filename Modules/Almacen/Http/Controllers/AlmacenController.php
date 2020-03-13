@@ -17,17 +17,26 @@ class AlmacenController extends Controller
     public function index()
     {
         //dd($sys);
-        $s = System::where('id', 3)->first();
-        if(session()->has('modules')){
-            return view('almacen::index');
-        }
-        else{
-        // $systems = session('systems');
+        // if(session()->has('modules')){
+        //     return view('almacen::index');
+        // }
+        // else{
+        $systems = session('systems');
         //dd($modules);
-        // foreach($systems as $s){
-            //dd($s->slug_role);
+        $condition = false;
+        $id = 0;
+        foreach($systems as $s){
             // dd($s->modules->permissions->role);
-            // if(Auth::user()->hasRole($s->slug_role)){
+            if(Auth::user()->hasRole($s->slug_role) && $s->name === 'ALMACENES' ){
+                $condition = true;
+                $id = $s->id;
+            }
+        }
+        if($condition == true){
+            if(session()->has('modules')){
+                return view('almacen::index');
+            }
+            else{
                 $modules = System::select('modules.id','modules.name','systems.id','modules.slug')
                   ->join('modules','systems.id','=','modules.system_id')         
                   ->join('permissions','modules.id','=','permissions.module_id')
@@ -37,15 +46,15 @@ class AlmacenController extends Controller
                   ->join('users','users.id','=','rol1.user_id')
                   ->where([
                       ['users.id','=',Auth::user()->id],
-                      ['systems.id', '=', $s->id],
+                      ['systems.id', '=',$id],
                       ])
                   ->distinct('modules.name')
                   ->get();
                 session(['modules' => $modules ]);
                 return view('almacen::index');
-            // }
-        // }
+            }
         }
+        // }
         return redirect()->route('/');
     }
 

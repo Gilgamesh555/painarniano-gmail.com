@@ -12,6 +12,7 @@ use Module\Almacen\Entities\OrderDescription;
 use App\User;
 class MaterialOrder extends Model
 {
+    protected $table = 'almacen.material_orders';
     protected $fillable = [
         'order_number', 'reason', 'funding_source_id', 'financing_agency_id', 'program_activity_id', 'user_id', 'year'
     ];

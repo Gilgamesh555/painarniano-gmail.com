@@ -7,6 +7,7 @@ use Module\Almacen\Entities\ProgramActivity;
 use App\User;
 class ProgramStructure extends Model
 {
+    protected $table = 'almacen.program_structures';
     protected $fillable = [
         'code_program_structure', 'description', 'year', 'user_id'
     ];

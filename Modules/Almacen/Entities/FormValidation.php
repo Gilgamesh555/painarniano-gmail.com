@@ -7,6 +7,7 @@ use App\User;
 use Module\Almacen\Entities\MaterialOrder;
 class FormValidation extends Model
 {
+    protected $table = 'almacen.form_validations';
     protected $fillable = [
         'status', 'observation', 'date', 'type', 'user_id', 'material_order_id'
     ];

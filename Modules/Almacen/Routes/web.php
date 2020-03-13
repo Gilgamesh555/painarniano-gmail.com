@@ -24,4 +24,5 @@ Route::group(['prefix' => 'almacen','middleware' => ['auth']],function() {
     Route::resource('program-activity','ProgramActivityController');
     Route::resource('program-structure','ProgramStructureController');
     Route::resource('material-order','MaterialOrderController');
+    Route::resource('validate-request','ValidateRequestController');
 });

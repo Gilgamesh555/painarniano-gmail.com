@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use Illuminate\Support\Facades\Auth;
-use Modules\Almacen\Entities\ProgramActivity;
-class ProgramActivityController extends Controller
+class ValidateRequestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +14,6 @@ class ProgramActivityController extends Controller
      */
     public function index()
     {
-        dd(Auth::user()->hasPermission('program-activity.index'));
-        if(Auth::check() && Auth::user()->hasPermission('program-activity.index')){
-            $program_activities = ProgramActivity::all();
-            view('almacen::config.program-activity.index', compact('program_activities'));
-        }
         return view('almacen::index');
     }
 

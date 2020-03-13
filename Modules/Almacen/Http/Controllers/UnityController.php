@@ -5,6 +5,8 @@ namespace Modules\Almacen\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Modules\Almacen\Entities\Unity;
 
 class UnityController extends Controller
 {
@@ -14,7 +16,13 @@ class UnityController extends Controller
      */
     public function index()
     {
-        return view('almacen::index');
+        $unities = Unity::all();
+        $user = Auth::user();
+        //dd($unities);
+        session(['unities' => $unities]);   
+        session(['user' => Auth::user()]);
+        //dd(Auth::user()->unities()->get());
+        return view('almacen::config.unity.index');
     }
 
     /**
@@ -23,7 +31,7 @@ class UnityController extends Controller
      */
     public function create()
     {
-        return view('almacen::create');
+        return view('almacen::config.unity.create');
     }
 
     /**
@@ -34,6 +42,15 @@ class UnityController extends Controller
     public function store(Request $request)
     {
         //
+        $post = new Unity;
+        $post->name = $request->name;
+        $post->year = $request->year;
+        $post->status = $request->status;
+        $post->user_id = $request->id;
+        $post->save();
+        if($post){
+            return redirect('almacen/unity');
+        }
     }
 
     /**
@@ -43,7 +60,7 @@ class UnityController extends Controller
      */
     public function show($id)
     {
-        return view('almacen::show');
+        //dd($id);   
     }
 
     /**
@@ -53,7 +70,9 @@ class UnityController extends Controller
      */
     public function edit($id)
     {
-        return view('almacen::edit');
+        $unit=Unity::where('unities.id', '=', $id)->first();
+        return view('almacen::config.unity.edit', ['unit' => $unit]);
+        //dd($unitie);
     }
 
     /**
@@ -64,7 +83,16 @@ class UnityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //s
+        //dd($request);
+        $post = Unity::findOrFail($id);
+        $post->name = $request->name;
+        $post->year = $request->year;
+        $post->status = $request->status;
+        $post->save();
+        if($post){
+            return redirect('almacen/unity');
+        }     
     }
 
     /**

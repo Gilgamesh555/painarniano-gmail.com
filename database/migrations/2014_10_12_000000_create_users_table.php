@@ -1,4 +1,4 @@
-<?php
+use Illuminate\Support\Facades\Auth;<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

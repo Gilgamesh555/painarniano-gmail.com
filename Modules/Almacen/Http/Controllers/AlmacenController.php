@@ -17,11 +17,17 @@ class AlmacenController extends Controller
     public function index()
     {
         //dd($sys);
-        $systems = session('systems');
+        $s = System::where('id', 3)->first();
+        if(session()->has('modules')){
+            return view('almacen::index');
+        }
+        else{
+        // $systems = session('systems');
         //dd($modules);
-        foreach($systems as $s){
+        // foreach($systems as $s){
             //dd($s->slug_role);
-            if(Auth::user()->hasRole($s->slug_role)){
+            // dd($s->modules->permissions->role);
+            // if(Auth::user()->hasRole($s->slug_role)){
                 $modules = System::select('modules.id','modules.name','systems.id','modules.slug')
                   ->join('modules','systems.id','=','modules.system_id')         
                   ->join('permissions','modules.id','=','permissions.module_id')
@@ -37,7 +43,8 @@ class AlmacenController extends Controller
                   ->get();
                 session(['modules' => $modules ]);
                 return view('almacen::index');
-            }
+            // }
+        // }
         }
         return redirect()->route('/');
     }

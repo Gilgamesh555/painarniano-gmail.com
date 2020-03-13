@@ -38,6 +38,8 @@ class HomeController extends Controller
                   ->distinct('systems.name')
                   ->get();
                   session(['systems' => $system ]);
+                   	
+        session()->forget('modules');
         return view('home');
     }   
 }

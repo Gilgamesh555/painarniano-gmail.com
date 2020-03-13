@@ -5,10 +5,8 @@ namespace Modules\Almacen\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Model\System;
-use App\Model\Module;
-class AlmacenController extends Controller
+
+class FundingSourceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,30 +14,7 @@ class AlmacenController extends Controller
      */
     public function index()
     {
-        //dd($sys);
-        $systems = session('systems');
-        //dd($modules);
-        foreach($systems as $s){
-            //dd($s->slug_role);
-            if(Auth::user()->hasRole($s->slug_role)){
-                $modules = System::select('modules.id','modules.name','systems.id','modules.slug')
-                  ->join('modules','systems.id','=','modules.system_id')         
-                  ->join('permissions','modules.id','=','permissions.module_id')
-                  ->join('permission_role as per1','permissions.id','=','per1.permission_id')
-                  ->join('roles','per1.role_id','=','roles.id')
-                  ->join('role_user as rol1','roles.id','=','rol1.role_id')
-                  ->join('users','users.id','=','rol1.user_id')
-                  ->where([
-                      ['users.id','=',Auth::user()->id],
-                      ['systems.id', '=', $s->id],
-                      ])
-                  ->distinct('modules.name')
-                  ->get();
-                session(['modules' => $modules ]);
-                return view('almacen::index');
-            }
-        }
-        return redirect()->route('/');
+        return view('almacen::index');
     }
 
     /**

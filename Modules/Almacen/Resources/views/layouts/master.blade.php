@@ -8,7 +8,7 @@
                 <ul class="nav child_menu">
                     <!--{{$modules = session('modules')}}-->
                     @foreach ($modules as $module)
-                        <li><a href="">{{$module->name}}</a></li>
+                        <li><a href="{{ route($module->slug) }}">{{$module->name}}</a></li>
                     @endforeach
                 </ul>
             </li>

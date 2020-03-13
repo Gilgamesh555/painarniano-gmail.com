@@ -6,6 +6,9 @@
     <link href="{{ asset('sgs/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('sgs/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('sgs/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
 
 @endpush
 @push('script')
@@ -24,6 +27,10 @@
     <script src="{{ asset('sgs/vendors/jszip/dist/jszip.min.js') }}"></script>
     <script src="{{ asset('sgs/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{ asset('sgs/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+    <script src="../vendors/pnotify/dist/pnotify.js"></script>
+    <script src="../vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="../vendors/pnotify/dist/pnotify.nonblock.js"></script>
+
 @endpush
 @section('content')
 <div class="">

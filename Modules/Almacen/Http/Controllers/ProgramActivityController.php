@@ -8,20 +8,31 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Support\Facades\Auth;
 use Modules\Almacen\Entities\ProgramActivity;
+use Modules\Almacen\Repositories\Setting\PermissionRepository;
 class ProgramActivityController extends Controller
 {
+    protected $permission;
     /**
      * Display a listing of the resource.
      * @return Response
      */
+    /**
+     * [__construct description]
+     * @method __construct
+     */
+    public function __construct(){
+        $this->permission = app(PermissionRepository::class);
+    }
     public function index()
     {
-        dd(Auth::user()->hasPermission('program-activity.index'));
-        if(Auth::check() && Auth::user()->hasPermission('program-activity.index')){
+        $system = session('systems')->where('name', 'ALMACENES')->first();
+        if($this->permission->hasPermission('program-activity.index',$system->roleName)){
             $program_activities = ProgramActivity::all();
-            view('almacen::config.program-activity.index', compact('program_activities'));
+            return view('almacen::config.program-activity.index', compact('program_activities'));
         }
-        return view('almacen::index');
+        else{
+            return view('almacen::index');
+        }
     }
 
     /**

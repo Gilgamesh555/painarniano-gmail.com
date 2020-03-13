@@ -22,4 +22,5 @@ Route::group(['prefix' => 'almacen','middleware' => ['auth']],function() {
     Route::resource('funding-source','FundingSourceController');
     Route::resource('financing-agency','FinancingAgencyController');
     Route::resource('program-activity','ProgramActivityController');
+    Route::resource('program-structure','ProgramStructureController');
 });

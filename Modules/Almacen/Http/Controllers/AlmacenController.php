@@ -20,8 +20,8 @@ class AlmacenController extends Controller
         $systems = session('systems');
         //dd($modules);
         foreach($systems as $s){
-            //dd($s);
-            if(Auth::user()->hasRole($s->roleName)){
+            //dd($s->slug_role);
+            if(Auth::user()->hasRole($s->slug_role)){
                 $modules = System::select('modules.id','modules.name','systems.id')
                   ->join('modules','systems.id','=','modules.system_id')         
                   ->join('permissions','modules.id','=','permissions.module_id')

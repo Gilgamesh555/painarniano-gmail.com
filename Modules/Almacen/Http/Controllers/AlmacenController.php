@@ -17,11 +17,20 @@ class AlmacenController extends Controller
     public function index()
     {
         //dd($sys);
-        $system = session('almacen');
-        $system = session('almacen')->first();
-        //dd($system);
-        if(Auth::user()->hasRole($system->slug_role)){
-            $modules = System::select('modules.id','modules.name','systems.id')
+        $almacen = System::select('systems.id', 'systems.slug', 'roles.name as roleName', 'roles.slug as slug_role')
+                  ->join('modules','systems.id','=','modules.system_id')
+                  ->join('permissions','modules.id','=','permissions.module_id')
+                  ->join('permission_role as per1','permissions.id','=','per1.permission_id')
+                  ->join('roles','per1.role_id','=','roles.id')
+                  ->join('role_user as rol1','roles.id','=','rol1.role_id')
+                  ->join('users','users.id','=','rol1.user_id')
+                  ->where('users.id','=',Auth::user()->id)
+                  ->where('systems.id', '=', 3)
+                  ->distinct('systems.name')
+                  ->first();
+        //dd($almacen);
+        if(Auth::user()->hasRole($almacen->slug_role)){
+            $modules = System::select('modules.id','modules.name','systems.id', 'modules.slug')
                 ->join('modules','systems.id','=','modules.system_id')         
                 ->join('permissions','modules.id','=','permissions.module_id')
                 ->join('permission_role as per1','permissions.id','=','per1.permission_id')
@@ -30,10 +39,11 @@ class AlmacenController extends Controller
                 ->join('users','users.id','=','rol1.user_id')
                 ->where([
                     ['users.id','=',Auth::user()->id],
-                    ['systems.id', '=', $system->id],
+                    ['systems.id', '=', $almacen->id],
                     ])
                 ->distinct('modules.name')
                 ->get();
+            //dd($modules);
             session(['modules' => $modules ]);
             return view('almacen::index');
         }

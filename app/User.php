@@ -83,13 +83,13 @@ class User extends Authenticatable
         return $this->hasMay(ProgramStructure::class);
     }
     public function properties(){
-        return $this->hasMay(Property::class);
+        return $this->hasMany(Property::class);
     }
     public function unities(){
         return $this->hasMany(Unity::class);
     }
     public function sorters(){
-        return $this->hasMay(Sorter::class);
+        return $this->hasMany(Sorter::class);
     }
     
 }

@@ -5,6 +5,7 @@ namespace Modules\Almacen\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UnityController extends Controller
 {
@@ -14,7 +15,8 @@ class UnityController extends Controller
      */
     public function index()
     {
-        return view('almacen::index');
+        dd(Auth::user()->properties()->get());
+        return view('almacen::config.unity.index');
     }
 
     /**

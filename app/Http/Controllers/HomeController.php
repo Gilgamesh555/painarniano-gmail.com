@@ -37,20 +37,7 @@ class HomeController extends Controller
                   ->where('users.id','=',Auth::user()->id)
                   ->distinct('systems.name')
                   ->get();
-        $almacen = System::select('systems.id', 'systems.slug', 'roles.name as roleName', 'roles.slug as slug_role')
-                  ->join('modules','systems.id','=','modules.system_id')
-                  ->join('permissions','modules.id','=','permissions.module_id')
-                  ->join('permission_role as per1','permissions.id','=','per1.permission_id')
-                  ->join('roles','per1.role_id','=','roles.id')
-                  ->join('role_user as rol1','roles.id','=','rol1.role_id')
-                  ->join('users','users.id','=','rol1.user_id')
-                  ->where('users.id','=',Auth::user()->id)
-                  ->where('systems.id', '=', 3)
-                  ->distinct('systems.name')
-                  ->get();
-        //dd($almacen);
         session(['systems' => $system ]);
-        session(['almacen' => $almacen]);
         return view('home');
     }   
 }

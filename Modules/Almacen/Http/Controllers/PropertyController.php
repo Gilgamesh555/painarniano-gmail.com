@@ -14,7 +14,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        return view('almacen::index');
+        return view('almacen::config.property.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return view('almacen::create');
+        return view('almacen::index');
     }
 
     /**

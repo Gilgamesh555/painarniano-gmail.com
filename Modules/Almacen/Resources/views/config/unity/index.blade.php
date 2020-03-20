@@ -52,31 +52,38 @@
                                 <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                         <th>Nombre</th>
-                                        <th>Anio</th>
+                                        <th width="16%">Anio</th>
                                         <th>Estado</th>
-                                        <th>Opciones</th>
+                                        <th width="16%">Opciones</th>
                                         </tr>
                                     </thead>
                                     <!--{{ $unities = session('unities') }}-->
-                                    @foreach ($unities as $unit)
                                     <tbody>
-                                        <tr @if ($unit->status === 'inactivo')
-                                            style="background-color: #e32948"
-                                        @endif>
+                                    @foreach ($unities as $unit)
+                                        <tr>
+                                            <!--{{$value='btn-success'}}-->
                                             <td>{{$unit->name}}</td>
                                             <td>{{$unit->year}}</td>
-                                            <td>{{$unit->status}}</td>
                                             <td>
-                                                <div class="row">
-                                                    <div class="col-md-6" style="text-align: center"><a href="{{route('unity.edit', $unit->id)}}"><i class="fa fa-eye">editar</i></a></div>
-                                                    <div class="col-md-6" style="text-align: center"><a href=""><i class="fa fa-edit">dar de baja</i></a></div>
-                                                </div>
-
+                                                @if ($unit->status === 'inactivo')
+                                                    <!--{{$value='btn-danger'}}-->    
+                                                @endif
+                                                <button class="btn {{$value}} btn-xs">{{$unit->status}}</button>
                                             </td>
-                                        </tr>
-                                        
-                                    </tbody>        
+                                            <td>
+                                                <a href="{{route('unity.edit', $unit->id)}}" class="btn btn-info btn-xs">
+                                                    <i class="fa fa-pencil">
+                                                    </i>
+                                                    Editar
+                                                </a>
+                                                <a href="#" class="btn btn-danger btn-xs">
+                                                    <i class="fa fa-trash-o"></i>
+                                                    Dar Baja
+                                                </a>
+                                            </td>
+                                        </tr>        
                                     @endforeach
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

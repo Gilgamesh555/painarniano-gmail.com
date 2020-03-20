@@ -7,9 +7,11 @@
             <li><a><i class="fa fa-edit"></i>Formularios <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <!--{{$modules = session('modules')}}-->
-                    @foreach ($modules as $module)
+                    @if(session()->has('modules'))
+                    @foreach (session('modules') as $module)
                         <li><a href="{{ route($module->slug) }}">{{$module->name}}</a></li>
                     @endforeach
+                    @endif
                 </ul>
             </li>
         </ul>

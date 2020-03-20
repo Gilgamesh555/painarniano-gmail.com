@@ -8,6 +8,7 @@ use Module\Almacen\Entities\Unity;
 use App\User;
 class Property extends Model
 {
+    protected $table = 'almacen.properties';
     protected $fillable = [
         'code_property', 'name', 'year', 'status', 'user_id', 'sorter_id', 'unity_id'
     ];

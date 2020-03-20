@@ -8,6 +8,7 @@ use Module\Almacen\Entities\Property;
 use Module\Almacen\Entities\Unity;
 class Sorter extends Model
 {
+    protected $table = 'almacen.sorters';
     protected $fillable = [
         'code_sorter', 'name', 'description', 'status', 'year', 'user_id'
     ];
